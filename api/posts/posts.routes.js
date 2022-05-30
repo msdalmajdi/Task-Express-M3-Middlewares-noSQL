@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: slugify } = require("slugify");
 const router = express.Router();
 const {
   postsGet,
@@ -8,6 +9,12 @@ const {
   fetchPost,
 } = require("./posts.controllers");
 
+router.use((req, res, next) => {
+  if (req.method === "POST") {
+    req.body.slug = slugify(req.body.title);
+  }
+  next();
+});
 router.get("/", postsGet);
 
 router.param("postId", async (req, res, next, postId) => {
