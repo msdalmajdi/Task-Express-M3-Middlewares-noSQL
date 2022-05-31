@@ -1,5 +1,7 @@
 const express = require("express");
 const { default: slugify } = require("slugify");
+const bodyParser = require("body-parser");
+const { validate, ValidationError, Joi } = require("express-validation");
 const router = express.Router();
 const {
   postsGet,
